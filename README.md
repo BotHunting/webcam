@@ -1,8 +1,26 @@
-Webcam Deteksi Wajah
+# Webcam Deteksi Wajah
 
-webcam 1.2
-- vitur foto dan rekam
+## Features
+- Face detection
+- Photo capture
+- Video recording
+- Enhanced user interface
 
-webcam 1.1
-- perbaikan ui
-- pasang deteksi wajah
+## Version History
+
+### v1.2
+- Added photo capture feature
+- Added video recording feature
+
+### v1.1
+- Improved user interface
+- Implemented face detection
+
+## Getting Started
+_(Add installation and usage instructions here)_
+
+## Requirements
+_(Add system requirements and dependencies here)_
+
+## License
+_(Add license information here)_
