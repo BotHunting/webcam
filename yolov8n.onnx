@@ -1,0 +1,46 @@
+import cv2
+from yolov8_onnx import YOLOv8
+
+# Pastikan Anda telah mengunduh 'yolov8n.onnx' dan menyimpannya di lokasi yang sesuai
+# Misalkan, jika modelnya ada di folder yang sama dengan skrip Python Anda
+model_path = "yolov8n.onnx" 
+
+# Inisialisasi model YOLOv8
+# Sesuaikan 'conf_thres' dan 'iou_thres' sesuai kebutuhan Anda
+model = YOLOv8(model_path, conf_thres=0.4, iou_thres=0.5)
+
+# Buka webcam
+cap = cv2.VideoCapture(0) # 0 adalah ID default untuk webcam Anda. Ganti jika ada lebih dari satu.
+
+if not cap.isOpened():
+    print("Error: Tidak dapat membuka kamera.")
+    exit()
+
+try:
+    while True:
+        ret, frame = cap.read()
+        if not ret:
+            print("Gagal mengambil frame.")
+            break
+
+        # Lakukan inferensi (deteksi objek)
+        # Hasilnya adalah list objek terdeteksi
+        # Setiap objek adalah dictionary dengan 'box', 'score', 'dan 'class_id'
+        boxes, scores, class_ids = model(frame)
+
+        # Gambar hasil deteksi pada frame
+        combined_img = model.draw_detections(frame)
+
+        # Tampilkan frame yang telah diproses
+        cv2.imshow("YOLOv8 ONNX Detection", combined_img)
+
+        # Tekan 'q' untuk keluar
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+finally:
+    # Bebaskan sumber daya kamera dan tutup jendela
+    cap.release()
+    cv2.destroyAllWindows()
+
+print("Program selesai.")
